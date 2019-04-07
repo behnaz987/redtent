@@ -36,29 +36,34 @@ class Designer(models.Model):
     phoneNumber = models.IntegerField(validators=[RegexValidator(regex='')])
     city = models.CharField(max_length=20, validators=[RegexValidator(regex='')])
     address = models.CharField(max_length=150)
-    comments = models.ManyToManyField(UserAccount, through='CommentForDesigner',
-                                      through_fields=('userAccount', 'designer'))
-    rates = models.ManyToManyField(UserAccount, through='RateForDesigner',
-                                   through_fields=('userAccount', 'designer'))
+    comments = models.ManyToManyField(UserAccount, through='CommentForDesigner',related_name='Designer1')
+    rates = models.ManyToManyField(UserAccount, through='RateForDesigner',related_name='Designer2')
 
 
 class RateForDesigner(models.Model):
     rate = models.IntegerField()
-    userAccount = models.ForeignKey(UserAccount, related_name='rates_for_designer')
-    designer = models.ForeignKey(Designer, related_name='rates_for_designer')
+    userAccount = models.ForeignKey(UserAccount, related_name='rates_for_designer', on_delete=models.CASCADE)
+    designer = models.ForeignKey(Designer, related_name='rates_for_designer', on_delete=models.CASCADE)
+
+#
+# class Designer(models.Model):
+#     user = models.OneToOneField(UserAccount, related_name='designer', on_delete=models.CASCADE)
+#     phoneNumber = models.IntegerField(validators=[RegexValidator(regex='')])
+#     city = models.CharField(max_length=20,validators=[RegexValidator(regex='')])
+#     address = models.CharField(max_length=150)
+#
 
 
 class CommentForDesigner(models.Model):
     body = models.CharField(max_length=500)
     isvalid = models.BooleanField()
-    userAccount = models.ForeignKey(UserAccount, related_name='comments_for_designer')
-    designer = models.ForeignKey(Designer, related_name='comments_for_designer')
+    userAccount = models.ForeignKey(UserAccount, related_name='comments_for_designer', on_delete=models.CASCADE)
+    designer = models.ForeignKey(Designer, related_name='comments_for_designer', on_delete=models.CASCADE)
 
 
 class Design(models.Model):
-    pic = models.ImageField( )
-    comments = models.ManyToManyField(UserAccount, through='CommentForDesign',
-                                      through_fields=('userAccount', 'design'))
+    pic = models.ImageField()
+    comments = models.ManyToManyField(UserAccount, through='CommentForDesign' )
     tag = models.ManyToManyField(Tag, related_name='designs')
     designer = models.ManyToManyField(Designer, related_name='designs')
 
@@ -66,20 +71,20 @@ class Design(models.Model):
 class CommentForDesign(models.Model):
     body = models.CharField(max_length=500)
     isValid = models.BooleanField()
-    userAccount = models.ForeignKey(UserAccount, related_name='comments_for_design')
-    design = models.ForeignKey(Design, related_name='comments_for_design')
+    userAccount = models.ForeignKey(UserAccount, related_name='comments_for_design', on_delete=models.CASCADE)
+    design = models.ForeignKey(Design, related_name='comments_for_design', on_delete=models.CASCADE)
 
 
 class RateForTag(models.Model):
     rate = models.IntegerField()
-    userAccount = models.ForeignKey(UserAccount)
-    tag = models.ForeignKey(Tag)
+    userAccount = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
 
 
 class CollectionOfDesign(models.Model):
     title = models.CharField(max_length=20)
     collPic = models.ImageField(upload_to=None,)
-    userAccount = models.ForeignKey(UserAccount, related_name='collections_of_design')
+    userAccount = models.ForeignKey(UserAccount, related_name='collections_of_design',on_delete=models.CASCADE)
 
 
 class CollectionOfDesigner(models.Model):
@@ -88,16 +93,9 @@ class CollectionOfDesigner(models.Model):
     designer = models.ManyToManyField(Designer)
 
 
-class Designer(models.Model):
-    user = models.OneToOneField(UserAccount, related_name='designer', on_delete=models.CASCADE)
-    phoneNumber = models.IntegerField(validators=[RegexValidator(regex='')])
-    city = models.CharField(max_length=20,validators=[RegexValidator(regex='')])
-    address = models.CharField(max_length=150)
-
-
 class DesignerRecord(models.Model):
     pic = models.ImageField()
     description = models.CharField(max_length=500)
-    designer = models.ForeignKey(Designer, related_name='designer_records')
+    designer = models.ForeignKey(Designer, related_name='designer_records', on_delete=models.CASCADE)
 
 
