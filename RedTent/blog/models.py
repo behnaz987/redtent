@@ -26,7 +26,6 @@ class UserAccount (models.Model):
     ])
 
     password = models.CharField(max_length=40, validators=[RegexValidator(regex='')])
-
     isDesigner = models.BooleanField()
     tag = models.ManyToManyField(Tag)
 
@@ -62,7 +61,7 @@ class CommentForDesigner(models.Model):
 
 
 class Design(models.Model):
-    pic = models.ImageField()
+    pic = models.CharField(unique=True,max_length=150)
     comments = models.ManyToManyField(UserAccount, through='CommentForDesign' )
     tag = models.ManyToManyField(Tag, related_name='designs')
     designer = models.ManyToManyField(Designer, related_name='designs')
@@ -97,7 +96,6 @@ class DesignerRecord(models.Model):
     pic = models.ImageField()
     description = models.CharField(max_length=500)
     designer = models.ForeignKey(Designer, related_name='designer_records', on_delete=models.CASCADE)
-
 
 
 class RateForDesign(models.Model):

@@ -16,7 +16,7 @@ urlpatterns = [
 
 
 
-    re_path(r'designs/(_from=(?P<_from>[0-9]*)&_row=(?P<_row>[0-9]*)/)?$',views.list_of_design),#[POST,GET]
+    re_path(r'designs/(_from=(?P<_from>[0-9]*)&_row=(?P<_row>[0-9]*)/)?$', views.list_of_design),#[POST,GET]
     path('designs/<int:design_id>', views.get_design),#[GET,PUT,DELETE]
 
     re_path(r'designs/<int:design_id>/tags/(_from=(?P<_from>[0-9]*)&_row=(?P<_row>[0-9]*)/)?$', views.test),#[POST, GET]

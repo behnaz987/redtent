@@ -43,18 +43,22 @@ def get_token_for_signup(request):
         data = json.loads(request.body)
         token = hashlib.md5(data["user_name"].encode()).hexdigest()
         user = UserAccount.objects.create(username=data['user_name'], password=data['password'], token=token)
-        response_data ={"user_name": user.username, "token": token}
+        response_data = {"user_name": user.username, "token": token}
     except:
-        response_data= {"error": "this user is exist"}
+        response_data = {"error": "this user is exist"}
     return Response(response_data)
 
 
 @api_view(['POST', 'GET'])
-def list_of_design(request, **kwargs):
+def list_of_design(request,*args, **kwargs):
     if request.method == 'POST':
-        return Response({""})
+        data = json.loads(request.body)
+        design = Design.objects.create(**data)
+        return Response({"id": design.pk, "pic": design.pic})
 
     elif request.method == 'GET':
+        _from = 0
+        _row = 10
         designs = Design.objects.all()
         return_data = []
         for design in designs:
@@ -126,7 +130,7 @@ def image(request,**kwargs):
         return Response({"id": image.pk, "path": image.pic.name})
 
     elif request.method=='GET':
-        a = "/home/alibashari/PycharmProjects/red_tnet5/" + request.path.split('/')[-1]
+        a = "/home/alibashari/PycharmProjects/new_red_tent/RedTent/" + request.path.split('/')[-1]
         response = FileResponse(open(a, 'rb'))
         return response
 
@@ -134,7 +138,7 @@ def image(request,**kwargs):
 @api_view(['POST','GET'])
 def test(request,**kwargs):
     if request.method == 'GET':
-        a ="/home/alibashari/PycharmProjects/red_tnet5/"+ request.path.split('/')[-1]
+        a ="/home/alibashari/PycharmProjects/new_red_tent/RedTent/"+ request.path.split('/')[-1]
         response = FileResponse(open(a , 'rb'))
         return response
     file_name = json
