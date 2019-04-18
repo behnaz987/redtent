@@ -99,3 +99,13 @@ class DesignerRecord(models.Model):
     designer = models.ForeignKey(Designer, related_name='designer_records', on_delete=models.CASCADE)
 
 
+
+class RateForDesign(models.Model):
+    rate = models.IntegerField()
+    design = models.ForeignKey(Design,related_name="rates_for_design", on_delete=models.CASCADE)
+    user = models.ForeignKey(UserAccount, related_name="rates_for_design", on_delete=models.CASCADE)
+
+
+class Image(models.Model):
+    pic = models.ImageField()
+
