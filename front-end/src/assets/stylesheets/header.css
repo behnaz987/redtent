@@ -1,0 +1,24 @@
+header {
+  background-color: #a5907e;
+  padding: 8px;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: #001011 solid 2px;
+}
+header nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+header nav a {
+  padding: 0 5px;
+  border-left: #001011 solid 1px;
+}
+header nav a:first-child {
+  border-right: #001011 solid 1px;
+}
+header nav a:hover {
+  background-color: #a5aa7e;
+}

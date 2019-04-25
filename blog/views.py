@@ -24,7 +24,7 @@ def users_list(request):
     return Response(data)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def get_token_for_login(request):
     data = json.loads(request.body)
     response_data = {}
