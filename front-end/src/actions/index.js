@@ -24,34 +24,6 @@ export function postUserData(userData, postType) {
   }
 }
 
-// const images = (payload) => {
-//   return {
-//     type: types.IMAGES,
-//     payload
-//   }
-// }
-
-// export function fetchImages(from, row) {
-//   return async function(dispatch) {
-//     // let mostViewd = [];
-//     // let top = [];  
-
-//     // axios.get(
-//     //   `${API.items}_from=${from}&_row=${row}&_order_by=view`
-//     // ).then((response) => dispatch(images(response.data)))
-//     //   .catch((error) => console.log(error));
-       
-//     // axios.get(
-//     //   `${API.items}_from=${from}&_row=${row}&_order_by=total_rate`
-//     // ).then((response) => top = response.data)
-//     //   .catch((error) => console.log(error));
-    
-//     // const imagesCollection = [...new Set([...mostViewd, ...top])];
-
-//     // return dispatch(images(imagesCollection));
-//   }
-// }
-
 export const freeHeight = (payload) => {
   return {
     type: types.FREE_HEIGHT,

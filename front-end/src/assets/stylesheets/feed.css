@@ -1,0 +1,11 @@
+/* 
+*****Feed Style*****
+*/
+.feed {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  direction: ltr;
+  background-color: #ffbc42;
+  /* font-size: 1.5rem; */
+}

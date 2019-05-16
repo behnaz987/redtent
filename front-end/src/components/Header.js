@@ -15,6 +15,10 @@ class Header extends Component {
   componentDidMount() {
     this.props.dispatch(action.getFreeHeight({window: window.innerHeight}))
     this.props.dispatch(action.getFreeHeight({header: this.divElement.clientHeight}))
+    window.addEventListener(
+      "resize", 
+      () => this.props.dispatch(action.getFreeHeight({window: window.innerHeight}))
+    );
   }
   
   render() {

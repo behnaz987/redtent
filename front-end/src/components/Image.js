@@ -18,129 +18,101 @@ import {
   FaWhatsapp,
   FaTelegramPlane 
 } from 'react-icons/fa';
-
-import API from './API';
-import Header from './Header';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Image extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-  
-          style_comments:{},
-          style_tailors:{},
-          style_menu:{},
-          
-          style_i1:{backgroundColor: 'rgb(211, 22, 22)'},
-          style_i2:{},
-          style_i3:{},
-          comments: [
-            {
-            name: 'زهرا',
-            comment: "بد نیست ",
-            }, {
-              name: 'فائزه',
-              comment: "خوبه ",
-            }
-          ],
-          tailors:[
-            { name: 'خانوم ظهیری'},
-            { name: 'خانوم زمانی'}
-          ],
-          image: {
-            url: "",
-            id: "",
-            rate: 0,
-            view: 0
-          }
-        };
-        this.open_tailors=this.open_tailors.bind(this);
-        this.open_comments=this.open_comments.bind(this);
-        this.open_img=this.open_img.bind(this);
-        this.open_menu=this.open_menu.bind(this);
-        this.close_menu=this.close_menu.bind(this);
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
 
-      open_menu() {
-        this.setState({ style_menu: {height:'20%'} })
-      }
-
-      close_menu() {
-        this.setState({ style_menu:{height:'0%'} })
-      }
+      style_comments:{},
+      style_tailors:{},
+      style_menu:{},
       
-      open_tailors() {
-        this.setState({
-          style_menu: {height:'0%'},
-          style_i1: {backgroundColor: 'rgb(240, 239, 239)'},
-          style_i2: {backgroundColor: 'rgb(240, 239, 239)'},
-          style_i3: {backgroundColor: 'rgb(211, 22, 22)'},
-          style_comments: {height: '0%'},
-          style_tailors: {height: '100%'}
-        })
-      }
-
-      open_comments() {
-        this.setState({
-          style_menu: {height:'0%'},
-          style_i1: {backgroundColor: 'rgb(240, 239, 239)'},
-          style_i3: {backgroundColor: 'rgb(240, 239, 239)'},
-          style_i2: {backgroundColor: 'rgb(211, 22, 22)'},
-          style_comments:{height: '100%'},
-          style_tailors:{height: '0%'}
-        })
-      }
-
-      open_img(){
-        this.setState({
-          style_menu: {height:'0%'},
-          style_i3: {backgroundColor: 'rgb(240, 239, 239)'},
-          style_i2: {backgroundColor: 'rgb(240, 239, 239)'},
-          style_i1: {backgroundColor: 'rgb(211, 22, 22)'},
-          style_comments: {height: '0%'},
-          style_tailors:{height: '0%'}
-        })
-      }
-
-  // test() {
-  //   const id = this.props.location.pathname.split(/\//).pop();
-  //   // src
-  //   // alt
-  //   // comment
-  //   // rate
-  //   // tailor_list
-  //   fetch(API.items + id, {
-  //     method: 'GET',
-  //     headers: new Header()
-  //   }).then(response => response.json())
-  //   .then(data => this.setState(data))
-  //   .catch(error => console.log(error));
-
-
-  // }
-  componentWillMount(){
-    const id = this.props.location.pathname.split(/\//).pop();
-    fetch(API.items + id, {
-      method: 'GET',
-      headers: new Headers()
-    }).then(response => response.json())
-    .then(data => {
-      this.setState({
-        image: {
-          url: API.files + data.design_picture,
-          id: data.design_id,
-          rate: data.total_rate,
-          view: data.view,
-          alt: data.design_picture
+      style_i1:{backgroundColor: 'rgb(211, 22, 22)'},
+      style_i2:{},
+      style_i3:{},
+      comments: [
+        {
+        name: 'زهرا',
+        comment: "بد نیست ",
+        }, {
+          name: 'فائزه',
+          comment: "خوبه ",
         }
-      })
-    })
-    .catch(error => console.log(error));
+      ],
+      tailors:[
+        { name: 'خانوم ظهیری'},
+        { name: 'خانوم زمانی'}
+      ],
+      image: {
+        url: "",
+        id: "",
+        rate: 0,
+        view: 0
+      },
+      render: 'default'
+    };
+    this.open_tailors=this.open_tailors.bind(this);
+    this.open_comments=this.open_comments.bind(this);
+    this.open_img=this.open_img.bind(this);
+    this.open_menu=this.open_menu.bind(this);
+    this.close_menu=this.close_menu.bind(this);
 
+    this.renderDefault = this.renderDefault.bind(this);
+    this.renderFeed = this.renderFeed.bind(this);
 
+    this.download = this.download.bind(this);
   }
-  render () {
+
+  open_menu() {
+    this.setState({ style_menu: {height:'20%'} })
+  }
+
+  close_menu() {
+    this.setState({ style_menu:{height:'0%'} })
+  }
+  
+  open_tailors() {
+    this.setState({
+      style_menu: {height:'0%'},
+      style_i1: {backgroundColor: 'rgb(240, 239, 239)'},
+      style_i2: {backgroundColor: 'rgb(240, 239, 239)'},
+      style_i3: {backgroundColor: 'rgb(211, 22, 22)'},
+      style_comments: {height: '0%'},
+      style_tailors: {height: '100%'}
+    })
+  }
+
+  open_comments() {
+    this.setState({
+      style_menu: {height:'0%'},
+      style_i1: {backgroundColor: 'rgb(240, 239, 239)'},
+      style_i3: {backgroundColor: 'rgb(240, 239, 239)'},
+      style_i2: {backgroundColor: 'rgb(211, 22, 22)'},
+      style_comments:{height: '100%'},
+      style_tailors:{height: '0%'}
+    })
+  }
+
+  open_img(){
+    this.setState({
+      style_menu: {height:'0%'},
+      style_i3: {backgroundColor: 'rgb(240, 239, 239)'},
+      style_i2: {backgroundColor: 'rgb(240, 239, 239)'},
+      style_i1: {backgroundColor: 'rgb(211, 22, 22)'},
+      style_comments: {height: '0%'},
+      style_tailors:{height: '0%'}
+    })
+  }
+
+  componentWillMount(){
+    this.setState({render: this.props.render});
+  }
+
+  renderDefault() {
     return (
       <div className="image-component">
       {console.log(this.state)}
@@ -221,9 +193,64 @@ class Image extends Component {
 
       </div>
     );
+  }
 
+  download() {
+    return (
+      <div className="download-btn">
+        <a href={this.props.src} download={this.props.alt}><FiDownload /></a>
+      </div>
+    );
+  }
 
+  renderFeed() {
+    const freeHeight = (
+    this.props.height.window - (
+      this.props.height.header + this.props.height.footer
+      )
+    );
+    const imageHeight = Math.floor(freeHeight * 0.825);
+    const imageMargin = Math.floor(freeHeight * 0.075) > 7 ? 7 : Math.floor(freeHeight * 0.075);
+    return(
+      <div className="image-wrapper"
+           id={`image-${this.props.index}`} 
+           style={ {
+             margin: `${imageMargin}px`,
+             padding: `${imageMargin}px`,
+            } }>
+        <NavLink to={`/images/${this.props.id}`}>
+          <img src={this.props.src}
+               alt={this.props.alt} 
+               style={ {
+                 height: imageHeight,
+                 borderRadius: `8px`,
+                 marginBottom:  `${imageMargin}px`
+               }} />
+        </NavLink>
+        {/* { this.share() } */}
+        { this.download() }
+        {/* { this.bottomButtons() } */}
+      </div>
+    );
+  }
+
+  render() {
+    switch(this.state.render) {
+      case 'default':
+        return this.renderDefault();
+      case 'feed':
+        return this.renderFeed();
+      default:
+        return this.renderDefault();
+    }
+  }
 }
-}
 
-export default Image;
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: state.login.isLoggedIn,
+    loginToken: state.login.token,
+    height: state.height
+  };
+} 
+export default connect(mapStateToProps)(Image);

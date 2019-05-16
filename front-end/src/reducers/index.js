@@ -24,17 +24,17 @@ function login(
   }
 }
 
-// function images(
-//   state = [], 
-//   action
-// ){
-//   switch(action.type) {
-//     case types.IMAGES:
-//       return [...new Set([...state, ...action.payload])];
-//     default:
-//       return state;
-//   }
-// }
+function images(
+  state = [], 
+  action
+){
+  switch(action.type) {
+    case types.IMAGES:
+      return [...new Set([...state, ...action.payload])];
+    default:
+      return state;
+  }
+}
 
 function height(state = {}, action) {
   switch(action.type) {
@@ -49,9 +49,8 @@ function height(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
-  login
-  ,
-  // images,
+  login,
+  images,
   height
 });
 export default rootReducer;

@@ -11,10 +11,7 @@ from rest_framework.exceptions import ParseError
 from rest_framework.parsers import FileUploadParser
 
 
-STATIC_FILE_PATH = "/home/ali/upload"
 parser_class = (FileUploadParser,)
-
-rt_static_path = "mnt/d/Self/Projects/University/SE/redtent/files/"
 
 #login
 @api_view(['POST'])
@@ -106,7 +103,7 @@ def image(request,**kwargs):
         return Response({"id": image.pk, "path": image.pic.name})
 
     elif request.method=='GET':
-        a = rt_static_path + request.path.split('/')[-1]
+        a = os.path.join("files", request.path.split('/')[-1])
         response = FileResponse(open(a, 'rb'))
         return response
 
@@ -114,7 +111,7 @@ def image(request,**kwargs):
 @api_view(['POST', 'GET'])
 def test(request,**kwargs):
     if request.method == 'GET':
-        a = rt_static_path + request.path.split('/')[-1]
+        a = request.path.split('/')[-1]
         response = FileResponse(open(a , 'rb'))
         return response
     file_name = json

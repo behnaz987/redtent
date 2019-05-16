@@ -1,0 +1,92 @@
+/* 
+*****Image Style*****
+*/
+.image-wrapper {
+  padding: 8px 16px 0 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  font-size: 1.5rem;
+  color: red;
+}
+
+.image-wrapper img {
+  border-radius: 5px;
+}
+
+.share-icon, .close-btn, .heart, .plus {
+  background-color: inherit;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 1px;
+}
+.share-icon {
+  top: 16px;
+  left: 24px;
+  position: absolute;
+}
+.share-wrapper {
+  border-radius: 5px;
+  left: 16px;
+  top: 8px;
+  width: 0;
+  position: absolute;
+  z-index: 1;
+  background-color: #201a23;
+  opacity: 0.9;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding: 1rem 0;
+  text-align: left;
+  direction: ltr;
+}
+.close-btn {
+  top: 16px;
+  right: 24px;
+  position: absolute;
+}
+.share-wrapper .social-media-icon {
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  text-decoration: none;
+  font-size: 1rem;
+  color: #c3073f;
+  display: block;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.share-wrapper .social-media-icon:hover {
+  color: #f1f1f1;
+  font-size: 1.75rem;
+}
+.share-wrapper .social-media-icon .close-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  font-size: 2.25rem;
+  margin-left: 3.25rem;
+}
+
+.download-btn {
+  position: absolute;
+  /* bottom: 48px; */
+  top: 16px;
+  right: 24px;
+}
+
+.bottom-btn-wrapper {
+  display: flex;
+  padding: 8px 0;
+  justify-content: space-between;
+}
+
+.hearts{
+  display: flex;
+  justify-content: baseline;
+}
+.heart {
+  padding: 1px;
+}

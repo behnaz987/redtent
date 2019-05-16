@@ -1,0 +1,15 @@
+/* 
+*****Banner style*****
+*/
+.banner{
+  background-image: radial-gradient(circle, #6f2232, #781f35, #821a38, #8b133c, #950740);
+  background-color: #ffbc42;
+  font-size: 5rem;
+  text-align: center;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 calc(100% - 16px)
+  );
+}
