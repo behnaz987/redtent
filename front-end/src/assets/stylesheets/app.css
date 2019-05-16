@@ -1,11 +1,3 @@
-/* 
-*****General Styles*****
-*/
-/* import styleSheets */
-@import url('./reset.css');
-@import url('./tanha_font.css');
-
-/* Styles */
 body {
   background-color: #fffffc;
   color: #001011;
@@ -18,7 +10,3 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-@import url('./header.css');
-@import url('./footer.css');
-@import url('./login.css');

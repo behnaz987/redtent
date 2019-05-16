@@ -1,0 +1,51 @@
+.sign-up {
+  color: black;
+  font-size: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  align-items: center;
+  height: 84vh;
+}
+.sign-up .username, .sign-up .password {
+  width: 100%;
+}
+.sign-up .username input, .sign-up .password input {
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 1.2rem;
+  padding: 0 5px;
+  background-color: inherit;
+  direction: ltr;
+  width: 90%;
+  margin: 8px 0;
+}
+.sign-up .username label, .sign-up .password label {
+  vertical-align: bottom;
+}
+.sign-up .username, .sign-up .password {
+  margin: 15px 0;
+}
+.sign-up .submit-button {
+  direction: ltr;
+}
+.sign-up .submit-button button {
+  border-radius: 5px;
+  padding: 7px 14px;
+  border: 2px solid blue;
+  background-color: inherit;
+  opacity: 0.5;
+  font-size: 1.2rem;
+  vertical-align: middle;
+  margin-left: 7%;
+}
+.sign-up .submit-button button:hover, .sign-up .submit-button button:focus {
+  opacity: 1;
+  cursor: pointer;
+}
+form {
+  border: 2px solid black;
+  padding: 10px 20px 10px 0;
+  border-radius: 5px;
+}
