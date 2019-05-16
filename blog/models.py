@@ -3,7 +3,8 @@ from django.db import models
 
 
 class Tag(models.Model):
-    body = models.CharField(max_length=20)
+    body = models.CharField(max_length=20,unique=True)
+
 
 
 class UserAccount (models.Model):
@@ -26,8 +27,9 @@ class UserAccount (models.Model):
     ])
 
     password = models.CharField(max_length=40, validators=[RegexValidator(regex='')])
-    isDesigner = models.BooleanField()
+    isDesigner = models.BooleanField(default=False)
     tag = models.ManyToManyField(Tag)
+    token = models.CharField(max_length=100, unique=True)
 
 
 class Designer(models.Model):
@@ -41,7 +43,7 @@ class Designer(models.Model):
 
 class RateForDesigner(models.Model):
     rate = models.IntegerField()
-    userAccount = models.ForeignKey(UserAccount, related_name='rates_for_designer', on_delete=models.CASCADE)
+    user = models.ForeignKey(UserAccount, related_name='rates_for_designer', on_delete=models.CASCADE)
     designer = models.ForeignKey(Designer, related_name='rates_for_designer', on_delete=models.CASCADE)
 
 #
@@ -56,12 +58,16 @@ class RateForDesigner(models.Model):
 class CommentForDesigner(models.Model):
     body = models.CharField(max_length=500)
     isvalid = models.BooleanField()
-    userAccount = models.ForeignKey(UserAccount, related_name='comments_for_designer', on_delete=models.CASCADE)
+    user = models.ForeignKey(UserAccount, related_name='comments_for_designer', on_delete=models.CASCADE)
     designer = models.ForeignKey(Designer, related_name='comments_for_designer', on_delete=models.CASCADE)
 
 
 class Design(models.Model):
-    pic = models.CharField(unique=True,max_length=150)
+    pic = models.CharField(unique=True, max_length=150)
+    view = models.IntegerField(default=0)
+    total_rate = models.IntegerField(default=0)
+    contact_date = models.DateField(auto_now_add=True, blank=True)
+    contact_time = models.TimeField(auto_now_add=True, blank=True)
     comments = models.ManyToManyField(UserAccount, through='CommentForDesign' )
     tag = models.ManyToManyField(Tag, related_name='designs')
     designer = models.ManyToManyField(Designer, related_name='designs')
@@ -70,20 +76,20 @@ class Design(models.Model):
 class CommentForDesign(models.Model):
     body = models.CharField(max_length=500)
     isValid = models.BooleanField()
-    userAccount = models.ForeignKey(UserAccount, related_name='comments_for_design', on_delete=models.CASCADE)
+    user = models.ForeignKey(UserAccount, related_name='comments_for_design', on_delete=models.CASCADE)
     design = models.ForeignKey(Design, related_name='comments_for_design', on_delete=models.CASCADE)
 
 
 class RateForTag(models.Model):
     rate = models.IntegerField()
-    userAccount = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
 
 
 class CollectionOfDesign(models.Model):
     title = models.CharField(max_length=20)
     collPic = models.ImageField(upload_to=None,)
-    userAccount = models.ForeignKey(UserAccount, related_name='collections_of_design',on_delete=models.CASCADE)
+    user = models.ForeignKey(UserAccount, related_name='collections_of_design',on_delete=models.CASCADE)
 
 
 class CollectionOfDesigner(models.Model):
