@@ -7,7 +7,7 @@ import SignIn from './SignIn';
 import Footer from './Footer';
 import Feed from './Feed';
 import Image from './Image';
-// import Admin from './Admin.js';
+import Admin from './Admin.js';
 
 class App extends Component {
   render() {
@@ -17,7 +17,7 @@ class App extends Component {
         <Route path="/signup" component={ SignUp } />
         <Route path="/signin" component={ SignIn } />
         <Route exact path="/feed" component={ Feed } />
-        {/* <Route exact path="/account/admin" component={ Admin } /> */}
+        <Route exact path="/account/admin" component={ Admin } />
         <Route path="/images" component={ Image } />
       <Footer />
     </div>

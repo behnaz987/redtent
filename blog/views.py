@@ -100,6 +100,7 @@ def image(request,**kwargs):
 
         f = request.data['file']
         image = Image.objects.create(pic=f)
+        print(Response({"id": image.pk, "path": image.pic.name}))
         return Response({"id": image.pk, "path": image.pic.name})
 
     elif request.method=='GET':
