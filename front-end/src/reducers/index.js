@@ -24,18 +24,6 @@ function login(
   }
 }
 
-function images(
-  state = [], 
-  action
-){
-  switch(action.type) {
-    case types.IMAGES:
-      return [...new Set([...state, ...action.payload])];
-    default:
-      return state;
-  }
-}
-
 function height(state = {}, action) {
   switch(action.type) {
     case types.FREE_HEIGHT:
@@ -48,6 +36,14 @@ function height(state = {}, action) {
   }
 }
 
+const images = (state = {count: 5}, action) => {
+  switch(action.type){
+    case types.COUNT:
+      return Object.assign({}, state, {...action.count});
+    default:
+      return state;
+  }
+}
 const rootReducer = combineReducers({
   login,
   images,

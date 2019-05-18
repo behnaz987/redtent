@@ -36,3 +36,10 @@ export function getFreeHeight(payload) {
     return dispatch(freeHeight(payload));
   }
 }
+
+export const count = (payload) => {
+  return {
+    type: types.COUNT,
+    payload
+  }
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FiRefreshCw } from 'react-icons/fi';
 // import { Redirect } from 'react-router-dom';
 
 import * as action from '../actions/index';
@@ -11,17 +12,17 @@ class Feed extends React.Component {
     super(props);
     this.state = {
       from: 0,
-      row: 10,
       bannerHeight: 0,
       freeHeight: 0,
       images: []
     }
     this.fetchImages = this.fetchImages.bind(this);
     this.banner = this.banner.bind(this);
+    this.loadMore = this.loadMore.bind(this);
   }
 
   componentWillMount() {
-    this.fetchImages(0, 5);
+    this.fetchImages(0, this.props.count);
   }
 
   fetchImages(from, number) {
@@ -34,6 +35,7 @@ class Feed extends React.Component {
     ).then(response => response.json())
     .then(data => {
       this.setState({images: this.getUnique(data)});
+      this.props.dispatch(action.count({count: this.state.images.length}));
     })
     .catch(error => console.log(error));
 
@@ -46,6 +48,7 @@ class Feed extends React.Component {
     ).then(response => response.json())
     .then(data => {
       this.setState({images: this.getUnique(data)});
+      this.props.dispatch(action.count({count: this.state.images.length}));
     })
     .catch(error => console.log(error));
   }
@@ -76,6 +79,11 @@ class Feed extends React.Component {
     );
   }
 
+  loadMore() {
+    console.log("loadmore")
+    this.fetchImages(this.state.from, this.props.count + 5);
+  }
+
   banner() {
     return (
       <div fill="red" 
@@ -88,7 +96,28 @@ class Feed extends React.Component {
     return(
       <div className="feed-wrapper">
         <div className="feed" style={{height: "100%"}}>
-          { this.state.images.map(this.eachImage) } 
+          { this.state.images.map(this.eachImage) }
+          <div className="reload"
+               style={{
+                display: "flex",
+                alignItems: "center" 
+               }}>
+            <div className="reload"
+                 style={{
+                  cursor: "pointer",
+                  backgroundColor: "#FFF",
+                  opacity: 0.78,
+                  borderRadius: "100%",
+                  padding: "10px",
+                  margin: "0 10px"
+                 }}>
+              <FiRefreshCw onClick={ this.loadMore }
+                            style={ {
+                              width: "50px",
+                              height: "50px"
+                            } }/>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -99,7 +128,7 @@ const mapStateToProps = state => {
   return {
     isLoggedIn: state.login.isLoggedIn,
     loginToken: state.login.token,
-    height: state
+    count: state.images.count
   };
 } 
 export default connect(mapStateToProps)(Feed);
